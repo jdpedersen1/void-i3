@@ -1,0 +1,261 @@
+
+
+      #------------------###    ########\\---------------------------------------------------------------------------------------------------#  
+     #------------------###    ###########--------------------------------------------------------------------------------------------------#
+                                      ###--------------------------------------------------------------------------------------------------#
+   #------------------###        #######--------------------------------------------------------------------------------------------------#
+  #------------------###            ###--------------------------------------------------------------------------------------------------#
+ #------------------###    ###########--------------------------------------------------------------------------------------------------#
+#------------------###    ##########//-----BY Jake@Linux-------------------------------------------------------------------------------#
+
+
+###   SECTIONS (see end of long dividers for section numbers)   ###
+##  1 --  settings        
+##  2 --  font            
+##  3 --  mouse           
+##  4 --  terminal        
+##  5 --  scratchpads     
+##  6 --  kill            
+##  7 --  run launchers   
+##  8 --  focus           
+##  9 --  splits          
+##  10 -- full             
+##  11 -- layouts         
+##  12 -- workspaces      
+##  13 -- system controls 
+##  14 -- gaps            
+##  15 -- bar             
+##  16 -- autostart       
+##  17 -- window rules    
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------------#  1
+## settings ##                                                                                                                                  
+# modifier
+set $mod Mod1
+
+# secondary modifier
+set $altmod Mod4
+
+# terminal
+set $term --no-startup-id alacritty
+
+# browser
+set $browser --no-startup-id brave-browser-stable
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------------#  2
+## font for window titles ##
+font pango:Hermit 10
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------------#  3
+## Use Mouse+$mod to drag floating windows to their wanted position ##
+floating_modifier $mod
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------------#  4
+## start a terminal ##
+bindsym $mod+Shift+Return exec --no-startup-id alacritty
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------------#  5
+## scratchpads ##
+# terminal
+bindsym $mod+Control+Return exec kitty --name dropdown & exec st -n scratch -e ncmpcpp & exec kitty --name ranger -e ranger
+bindsym $mod+Return [instance="dropdown"] scratchpad show; move position center
+
+# ncmpcpp
+#bindsym $altmod+Control+Return exec st -n scratch -e ncmpcpp
+bindsym $altmod+Return [instance="scratch"] scratchpad show; move position center
+
+# ranger
+#bindsym $altmod+Shift+Return exec kitty --name ranger -e ranger
+bindsym $altmod+f [instance="ranger"] scratchpad show; move position center
+
+
+#-------------------------------------------------------------------------------------------------------------------------------------------#   6
+## kill focused window ##
+bindsym $mod+Shift+q kill
+
+
+#-------------------------------------------------------------------------------------------------------------------------------------------#   7
+## run launchers ##
+# dmenu
+bindsym $mod+shift+d exec --no-startup-id dmenu_run -p Run -l 5 -g 3 -b -nb '#222222' -sb '#000000' -nf '#b8b8b8' -sf '#b8b8b8' -fn 'Hermit'
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+# rofi
+bindsym $mod+shift+r exec --no-startup-id rofi -show run
+
+
+#-------------------------------------------------------------------------------------------------------------------------------------------#   8
+## change focus ##
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+
+#-------------------------------------------------------------------------------------------------------------------------------------------#  9
+## splits ##
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+
+#-------------------------------------------------------------------------------------------------------------------------------------------#  10
+## toggle full ##
+bindsym $mod+f fullscreen toggle
+
+
+#-------------------------------------------------------------------------------------------------------------------------------------------#  11
+## layout ##
+# stack
+bindsym $mod+s layout stacking
+
+# tabs
+bindsym $mod+w layout tabbed
+
+#split
+bindsym $mod+e layout toggle split
+
+
+#-------------------------------------------------------------------------------------------------------------------------------------------#  12
+## workspaces ##
+#set $WS1 
+#set $WS2 
+#set $WS3 
+#set $WS4 
+#set $WS5 
+#set $WS6 
+#set $WS7 
+#set $WS8 
+#set $WS9 
+#set $WS10 
+
+# switch to workspace
+bindsym $mod+1 workspace 1: 
+bindsym $mod+2 workspace 2: 
+bindsym $mod+3 workspace 3: 
+bindsym $mod+4 workspace 4: 
+bindsym $mod+5 workspace 5: 
+bindsym $mod+6 workspace 6: 
+bindsym $mod+7 workspace 7: 
+bindsym $mod+8 workspace 8: 
+bindsym $mod+9 workspace 9: 
+bindsym $mod+0 workspace 10: 
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1: 
+bindsym $mod+Shift+2 move container to workspace 2: 
+bindsym $mod+Shift+3 move container to workspace 3: 
+bindsym $mod+Shift+4 move container to workspace 4: 
+bindsym $mod+Shift+5 move container to workspace 5: 
+bindsym $mod+Shift+6 move container to workspace 6: 
+bindsym $mod+Shift+7 move container to workspace 7: 
+bindsym $mod+Shift+8 move container to workspace 8: 
+bindsym $mod+Shift+9 move container to workspace 9: 
+bindsym $mod+Shift+0 move container to workspace 10: 
+
+
+#-------------------------------------------------------------------------------------------------------------------------------------------#  13
+## system control
+# reload the configuration file 
+bindsym $mod+c reload
+
+# restart i3 
+bindsym $mod+Control+r restart
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+c exec --no-startup-id "kitty --name logout -e ./.local/scripts/dmenu/herbst-logout.sh"
+
+
+#-------------------------------------------------------------------------------------------------------------------------------------------#  14
+## Gaps ##
+gaps inner 6
+gaps outer 4
+
+
+#-------------------------------------------------------------------------------------------------------------------------------------------#  15
+## status bar ##
+bar {
+
+        colors {
+        background #222222
+        statusline #2f343f
+        separator #4b5262
+
+		# colour of border, background, and text
+        focused_workspace	#2f343f	#2f343f	#bf616a
+        active_workspace	#2f343f	#2f343f	#b8b8b8
+        inactive_workspace	#2f343f	#2f343f	#b8b8b8
+        urgent_workspace	#2f343f	#ebcb8b	#2f343f
+     }
+        #status_command i3status -c ~/.config/i3/i3status.conf
+        status_command i3blocks -c ~/.config/i3/i3blocks/config
+        position top
+        font xft:Hermit, FontAwesome 12
+}
+
+
+#-------------------------------------------------------------------------------------------------------------------------------------------#  16
+## Autostart ##
+# wallpaper
+exec --no-startup-id xwallpaper --zoom ~/.config/i3/balloon.jpg &
+
+# keybindings
+exec --no-startup-id sxhkd &
+
+# compositor
+exec --no-startup-id picom --experimental-backend &
+
+# power manager
+exec --no-startup-id xfce4-power-manager &
+
+exec --no-startup-id kitty --name dropdown 
+exec --no-startup-id st -n scratch -e ncmpcpp 
+exec --no-startup-id kitty --name ranger -e ranger
+
+
+#-------------------------------------------------------------------------------------------------------------------------------------------#  17
+## window rules ##
+# border size
+for_window [class=".*"] border pixel 2
+
+for_window [instance="logout"] floating enable
+for_window [instance="logout"] resize set 350 250
+
+#Dropdown
+for_window [instance="dropdown"] floating enable
+for_window [instance="dropdown"] resize set 1000 600
+for_window [instance="dropdown"] move scratchpad
+for_window [instance="dropdown"] border pixel 5
+
+#Scratch
+for_window [instance="scratch"] floating enable
+for_window [instance="scratch"] resize set 500 500
+for_window [instance="scratch"] move scratchpad
+for_window [instance="scratch"] border pixel 10
+
+#Ranger
+for_window [instance="ranger"] floating enable
+for_window [instance="ranger"] resize set 1200 400
+for_window [instance="ranger"] move scratchpad
+for_window [instance="ranger"] border pixel 8
+
+# colour of border, background, text, indicator, and child_border
+client.focused			#bf616a #2f343f #d8dee8 #bf616a #d8dee8
+client.focused_inactive	#2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.unfocused		#2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.urgent			#2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.placeholder		#2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.background #2f343f
